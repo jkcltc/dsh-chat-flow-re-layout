@@ -5,10 +5,16 @@ context injections and finished reasoning rows pile horizontally in the chat
 flow as compact name-only chips, while running cards, streaming reasoning and
 plain text keep their original full-width vertical stacking.
 
-![Demo: settled tool calls and reasoning pile as compact chips between paragraphs](docs/demo.png)
+## Before / After
 
-*Settled tool calls and a finished reasoning row pile as compact name-only
-chips between paragraphs; the text keeps its full-width stacking.*
+**Before** — every tool call and reasoning row takes its own full-width line:
+
+![Before: default vertical stacking, one full-width row per tool call](docs/before.png)
+
+**After** — settled rows pile horizontally as compact name-only chips, and the
+same turn takes a fraction of the vertical space:
+
+![After: settled tool calls and reasoning pile as compact chips between paragraphs](docs/after.png)
 
 ## How it works
 

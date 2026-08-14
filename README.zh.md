@@ -45,6 +45,12 @@ dsh-chat-flow-re-layout/
 
 ## 安装
 
+克隆本仓库，然后在仓库目录运行：
+
+```sh
+dsh plugin --profile web add .
+```
+
 在 profile 的 `cordis.patch.yml` 中添加行：
 
 ```yaml
@@ -53,5 +59,6 @@ dsh-chat-flow-re-layout/
       name: 'dsh-chat-flow-re-layout'
 ```
 
-并在 profile 的 `package.json` 依赖中声明该包（`file:` 指向本目录），
-然后重启 `dsh web`。
+然后重启 `dsh web`。可以运行 `dsh --profile web --dump-config` 确认插件
+已经进入最终组合配置。无需构建——手写的 ModuleLoader bundle 直接随
+仓库提交。

@@ -50,6 +50,12 @@ guarded by a `data-plugin-css` marker against double injection.
 
 ## Install
 
+Clone this repository, then from the repository directory:
+
+```sh
+dsh plugin --profile web add .
+```
+
 Add a row to the profile's `cordis.patch.yml`:
 
 ```yaml
@@ -58,5 +64,6 @@ Add a row to the profile's `cordis.patch.yml`:
       name: 'dsh-chat-flow-re-layout'
 ```
 
-and declare the package in the profile's `package.json` dependencies
-(`file:` reference to this directory), then restart `dsh web`.
+then restart `dsh web`. Run `dsh --profile web --dump-config` to confirm the
+plugin made it into the composed configuration. There is no build step — the
+hand-written ModuleLoader bundle is committed as-is.

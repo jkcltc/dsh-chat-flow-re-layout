@@ -1,0 +1,46 @@
+# dsh-chat-flow-re-layout
+
+DeepSeek Harness Web UI 的客户端布局插件：已完成的工具调用、上下文注入与
+思考块在聊天流中横向堆叠为仅含名称的紧凑小块；运行中的卡片、流式思考与
+正文段落保持原有的全宽垂直堆叠。
+
+## 工作原理
+
+纯 CSS 注入，不改动任何组件：
+
+- 聊天流列改造为可换行的横向 flex 容器；
+- 按节点类型裁决宽度：已完成的工具调用 / 上下文注入 / 思考块收缩为
+  内容宽度小块（`flex: 0 0 auto`），其余元素保持全宽行（`flex: 1 1 100%`）；
+- 通过 `display: contents` 拆解 assistant-step 内部层级，使思考块与
+  工具块在同一行混排；
+- 运行状态条（`role="status"`，"Deep diving..."）始终独占流末尾的全宽行；
+- 完成态小块隐藏摘要文本（class 后缀约定 `_summary` / `_separator` /
+  `_sep` / `_fileLink`），运行中与 Cordis 交互卡片通过 `:has()` 恢复原样。
+
+## 目录结构
+
+```
+dsh-chat-flow-re-layout/
+├── package.json          # dsh-chat-flow-re-layout
+├── LICENSE               # MIT
+├── lib/
+│   ├── index.js          # Node 半：空插件（ESM）
+│   ├── client.js         # 浏览器半：ModuleLoader bundle，注入 <style>
+│   └── types/            # 两半的类型声明
+```
+
+浏览器半为手写 ModuleLoader bundle（无构建步骤）：模块加载时把样式表注入
+`<head>`，并以 `data-plugin-css` 标记防止重复注入。
+
+## 安装
+
+在 profile 的 `cordis.patch.yml` 中添加行：
+
+```yaml
+- insert:
+    - id: chat-flow-re-layout
+      name: 'dsh-chat-flow-re-layout'
+```
+
+并在 profile 的 `package.json` 依赖中声明该包（`file:` 指向本目录），
+然后重启 `dsh web`。
